@@ -1,7 +1,8 @@
 const webpack = require('webpack')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const PATHS = {
   srcDir: __dirname + '/src',
@@ -14,7 +15,7 @@ const PATHS = {
 }
 
 const config = {
-    context: PATHS.srcDir,
+    context: PATHS.srcDir, // define the starting directory for the webpack to look for
     resolve: {
       alias: {
         mainSCSS: PATHS.styleDir + '/main.scss'
@@ -60,15 +61,20 @@ const config = {
       ]
     },
     plugins: [
+      // generate index.HTML file
       new HtmlWebpackPlugin({
           title: "ReactAppBasic",
           template: "app/index.ejs", // custom template
           inject: 'body' // inject all scripts tag to body
       }),
+      // Chunking the common codes
       new webpack.optimize.CommonsChunkPlugin({
         name: 'commons',
         filename: 'commons.js'
       }),
+      new CopyWebpackPlugin([
+        {from: './assets/images', to: '../public/images'}
+      ]),
       new ExtractTextPlugin('bundle.css')
     ]
 }
