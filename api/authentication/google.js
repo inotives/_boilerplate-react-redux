@@ -35,7 +35,6 @@ routes.get('/', (req, res) => {
 
 routes.get('/init', (req, res) => {
   var url = getAuthUrl();
-  console.log('here?')
   res.json({
     googleAuthLink: url
   })
@@ -53,9 +52,11 @@ routes.use("/oauth2_callback", (req, res, next) => {
           resolve(response || err);
         })
       }).then( (data) => {
-        res.json({
-          data: data
-        })
+        //compare the email in data field,
+        // then generate the token
+        // pass the token to react
+        var token = ',asaninnlanlndalfnafl'
+        res.redirect('/login_success?token='+token)
       } )
     }
     else {

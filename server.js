@@ -21,13 +21,13 @@ app.use('/api', routes);
 
 
 
-// Every path (other than those define above), will be serving from index.html ----------------------------------------
-// app.get('*', function(req, res, next){
-//   var indexFile = path.resolve(__dirname+'/public', 'index.html')
-//   console.log('Request: [GET] : ', req.originalUrl)
-//
-//   res.sendFile(indexFile);
-// })
+//Every path (other than those define above), will be serving from index.html ----------------------------------------
+app.get('*', function(req, res, next){
+  var indexFile = path.resolve(__dirname+'/public', 'index.html')
+  console.log('Request: [GET] : ', req.originalUrl)
+
+  res.sendFile(indexFile);
+})
 
 // server start
 app.listen(port);
